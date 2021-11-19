@@ -1,9 +1,8 @@
 from datetime import date
 
-from sqlalchemy import Column, String, Integer, Date, ForeignKey
-from sqlalchemy.orm import relationship
-
 from app.database.base import Base
+from sqlalchemy import Column, Date, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 
 
 class Chart(Base):

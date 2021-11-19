@@ -1,7 +1,6 @@
-from sqlalchemy import Integer, ForeignKey, Table, Column
-from sqlalchemy.orm import relationship
-
 from app.database.base import Base
+from sqlalchemy import Column, ForeignKey, Integer
+from sqlalchemy.orm import relationship
 
 
 class SongAuthorAssociation(Base):
