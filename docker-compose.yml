@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    volumes:
+      - ./dbdata:/var/lib/postgres/data
+    env_file:
+      - .env
+  web:
+    build:
+      dockerfile: Dockerfile
+      context: ./src
+    volumes:
+      - ./src/app:/app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
