@@ -1,13 +1,7 @@
-from typing import Any
-
-from sqlalchemy.ext.declarative import as_declarative, declared_attr
-
-
-@as_declarative()
-class Base:
-    id: Any
-    __name__: str
-
-    @declared_attr
-    def __tablename__(cls) -> str:
-        return ''.join(["_" + char.lower() if char.isupper() else char for char in cls.__name__])[1:]
+from app.database.base_class import Base
+from app.models.user import User
+from app.models.song import Song
+from app.models.author import Author
+from app.models.author_song_association import SongAuthorAssociation
+from app.models.chart import Chart
+from app.models.charted_song import ChartedSong

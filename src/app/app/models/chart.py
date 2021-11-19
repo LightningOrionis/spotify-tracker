@@ -3,7 +3,7 @@ from datetime import date
 from sqlalchemy import Column, String, Integer, Date, ForeignKey
 from sqlalchemy.orm import relationship
 
-from src.app.app.database.base import Base
+from app.database.base import Base
 
 
 class Chart(Base):
