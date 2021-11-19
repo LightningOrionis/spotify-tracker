@@ -10,4 +10,4 @@ class Base:
 
     @declared_attr
     def __tablename__(cls) -> str:
-        return ''.join(["_" + char.lower() if char.isupper() else char for char in cls.__name__])[1:]
+        return "".join(["_" + char.lower() if char.isupper() else char for char in cls.__name__])[1:]

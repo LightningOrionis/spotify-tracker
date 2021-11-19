@@ -1,7 +1,6 @@
-from sqlalchemy import ForeignKey, Integer, Column
-from sqlalchemy.orm import relationship
-
 from app.database.base import Base
+from sqlalchemy import Column, ForeignKey, Integer
+from sqlalchemy.orm import relationship
 
 
 class ChartedSong(Base):
