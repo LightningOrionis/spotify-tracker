@@ -31,11 +31,13 @@ class BaseCRUD(Generic[ModelType, CreateBaseSchema, UpdateBaseSchema]):  # type:
     def update(
         self, session: Session, obj_to_update: ModelType, update_data: Union[UpdateBaseSchema, Dict[str, Any]]
     ) -> ModelType:
+        obj_data = jsonable_encoder(obj_to_update)
+
         if not isinstance(update_data, dict):
             update_data = update_data.dict(exclude_unset=True)
 
         for field in obj_to_update:
-            if field in update_data:
+            if field in obj_data:
                 setattr(obj_to_update, field, update_data[field])
 
         session.add(obj_to_update)
