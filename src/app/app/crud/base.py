@@ -1,8 +1,9 @@
 from typing import Any, Dict, Generic, List, Union
 
-from app.schemas import CreateBaseSchema, ModelType, UpdateBaseSchema
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
+
+from app.schemas.base import CreateBaseSchema, ModelType, UpdateBaseSchema
 
 
 class BaseCRUD(Generic[ModelType, CreateBaseSchema, UpdateBaseSchema]):  # type: ignore
@@ -10,7 +11,7 @@ class BaseCRUD(Generic[ModelType, CreateBaseSchema, UpdateBaseSchema]):  # type:
         self.model = model
 
     def get(self, session: Session, id: int) -> ModelType:
-        obj = session.query(self.model).get(id)
+        obj = session.query(self.model).get(id).first()
         return obj
 
     def get_by_offset_and_limit(self, session: Session, offset: int = 0, limit: int = 100) -> List[ModelType]:
@@ -20,9 +21,11 @@ class BaseCRUD(Generic[ModelType, CreateBaseSchema, UpdateBaseSchema]):  # type:
     def create(self, session: Session, obj_to_add: CreateBaseSchema) -> ModelType:
         obj_data = jsonable_encoder(obj_to_add)
         obj = self.model(**obj_data)
+
         session.add(obj)
         session.commit()
         session.refresh(obj)
+
         return obj
 
     def update(
@@ -30,16 +33,21 @@ class BaseCRUD(Generic[ModelType, CreateBaseSchema, UpdateBaseSchema]):  # type:
     ) -> ModelType:
         if not isinstance(update_data, dict):
             update_data = update_data.dict(exclude_unset=True)
+
         for field in obj_to_update:
             if field in update_data:
                 setattr(obj_to_update, field, update_data[field])
+
         session.add(obj_to_update)
         session.commit()
         session.refresh(obj_to_update)
+
         return obj_to_update
 
     def delete(self, session: Session, id: int) -> ModelType:
-        obj = session.query(self.model).get(id)
+        obj = session.query(self.model).get(id).first()
+
         session.delete(obj)
         session.commit()
+
         return obj

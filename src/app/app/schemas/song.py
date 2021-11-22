@@ -7,8 +7,8 @@ class BaseSong(BaseModel):
 
 class CreateSongSchema(BaseSong):
     id: int
-    author_id: int
+    authors: list
 
 
 class UpdateSongSchema(BaseSong):
-    author_id: int
+    pass
