@@ -1,8 +1,9 @@
 from datetime import date
 
-from app.database.base import Base
 from sqlalchemy import Column, Date, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+
+from app.database.base_class import Base
 
 
 class Chart(Base):
@@ -13,4 +14,4 @@ class Chart(Base):
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
 
     chart_songs = relationship("ChartedSong", back_populates="chart")
-    user = relationship("User", back_populates="user")
+    user = relationship("User", back_populates="charts")
