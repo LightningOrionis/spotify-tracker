@@ -11,16 +11,19 @@ class BaseCRUD(Generic[ModelType, CreateBaseSchema, UpdateBaseSchema]):  # type:
         self.model = model
 
     def get(self, session: Session, id: int) -> ModelType:
-        obj = session.query(self.model).get(id).first()
+        obj = session.query(self.model).get(id)
         return obj
 
     def get_by_offset_and_limit(self, session: Session, offset: int = 0, limit: int = 100) -> List[ModelType]:
         objects = session.query(self.model).offset(offset).limit(limit).all()
         return objects
 
+    def get_all(self, session: Session):
+        objects = session.query(self.model).all()
+        return objects
+
     def create(self, session: Session, obj_to_add: CreateBaseSchema) -> ModelType:
-        obj_data = jsonable_encoder(obj_to_add)
-        obj = self.model(**obj_data)
+        obj = self.model(**obj_to_add)
 
         session.add(obj)
         session.commit()
@@ -36,7 +39,7 @@ class BaseCRUD(Generic[ModelType, CreateBaseSchema, UpdateBaseSchema]):  # type:
         if not isinstance(update_data, dict):
             update_data = update_data.dict(exclude_unset=True)
 
-        for field in obj_to_update:
+        for field in update_data:
             if field in obj_data:
                 setattr(obj_to_update, field, update_data[field])
 
@@ -47,7 +50,7 @@ class BaseCRUD(Generic[ModelType, CreateBaseSchema, UpdateBaseSchema]):  # type:
         return obj_to_update
 
     def delete(self, session: Session, id: int) -> ModelType:
-        obj = session.query(self.model).get(id).first()
+        obj = session.query(self.model).get(id)
 
         session.delete(obj)
         session.commit()
