@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
 from app.database.base_class import Base
+from app.models.author_song_association import SongAuthorAssociation  # noqa
 
 
 class Song(Base):

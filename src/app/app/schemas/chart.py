@@ -3,13 +3,16 @@ from typing import List
 
 from pydantic import BaseModel
 
-from app.models.charted_song import ChartedSong
+from app.schemas.charted_song import ChartedSong
 
 
 class BaseChart(BaseModel):
     date: date
     name: str
     user_id: int
+
+    class Config:
+        arbitrary_types_allowed = True
 
 
 class CreateChartSchema(BaseChart):
@@ -24,4 +27,4 @@ class Chart(BaseChart):
     charted_songs: List[ChartedSong]
 
     class Config:
-        arbitrary_types_allowed = True
+        orm_mode = True
