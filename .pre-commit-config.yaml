@@ -4,29 +4,34 @@ repos:
     hooks:
     -   id: black
         name: black
+        entry: black --line-length=120
 -   repo: https://github.com/PyCQA/isort
     rev: 5.9.3
     hooks:
     -   id: isort
         name: isort
+        entry: isort --line-length=120
 -   repo: https://github.com/pre-commit/mirrors-mypy
     rev: v0.910
     hooks:
     -   id: mypy
         name: mypy
         additional_dependencies: [types-all]
+        exclude: "./src/app/app/database/base_class.py"
 -   repo: https://github.com/PyCQA/flake8
     rev: 3.9.2
     hooks:
     -   id: flake8
         name: flake8
+        entry: flake8
         additional_dependencies: [radon]
 -   repo: local
     hooks:
     -   id: pytest
+        stages: [push]
         name: pytest
-        entry: pytest
+        entry: cd src/app/ && export PYTHONPATH="." && pytest /app/tests/
         language: python
-        additional_dependencies: [pytest]
+        additional_dependencies: [pytest, factory_boy]
         always_run: true
         pass_filenames: false
