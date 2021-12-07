@@ -25,3 +25,6 @@ class UpdateChartSchema(BaseChart):
 
 class Chart(BaseChart):
     charted_songs: List[ChartedSong]
+
+    class Config:
+        orm_mode = True

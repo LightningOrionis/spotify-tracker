@@ -19,4 +19,5 @@ class UpdateSongSchema(BaseSong):
 
 
 class Song(CreateSongSchema):
-    pass
+    class Config:
+        orm_mode = True

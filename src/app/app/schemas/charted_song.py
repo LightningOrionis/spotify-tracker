@@ -18,3 +18,6 @@ class UpdateChartedSongSchema(CreateChartedSongSchema):
 
 class ChartedSong(BaseChartedSong):
     song: Song
+
+    class Config:
+        orm_mode = True
