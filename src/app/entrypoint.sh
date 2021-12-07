@@ -1,4 +1,4 @@
 #!/bin/bash
-alembic upgrade
+alembic upgrade head
 export PYTHONPATH="."
-python3 ./app/tests/testing_utils/db/testing_db.py
+python3 ./app/main.py
