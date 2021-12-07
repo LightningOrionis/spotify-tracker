@@ -1,4 +1,8 @@
+from typing import List
+
 from pydantic import BaseModel
+
+from app.schemas.author import BaseAuthor
 
 
 class BaseSong(BaseModel):
@@ -7,8 +11,12 @@ class BaseSong(BaseModel):
 
 class CreateSongSchema(BaseSong):
     id: int
-    authors: list
+    authors: List[BaseAuthor]
 
 
 class UpdateSongSchema(BaseSong):
+    pass
+
+
+class Song(CreateSongSchema):
     pass

@@ -2,6 +2,7 @@ from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
 from app.database.base_class import Base
+from app.models.song import Song  # noqa
 
 
 class ChartedSong(Base):

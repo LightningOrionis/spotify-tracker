@@ -14,7 +14,7 @@ STR_CONVERT_PATTERN = "%d-%m-%Y"
 DATE_REGEX_PATTERN = r"[\d]{1,2}-[\d]{1,2}-[\d]{4}"
 
 
-@router.get("/", response_model=List[Chart])
+@router.get("/", response_model=List[ChartSchema])
 async def get_all_charts_per_days(
     session=Depends(deps.get_db_session),
     date_start: str = Query(
