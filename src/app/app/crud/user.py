@@ -6,16 +6,19 @@ from app.core import security
 from app.crud.base import BaseCRUD
 from app.models.user import User
 from app.schemas.user import CreateUserSchema, UpdateUserSchema
+from app.layers.utils.token_generator import generate_tokens
 
 
 class UserCRUD(BaseCRUD[User, CreateUserSchema, UpdateUserSchema]):  # type: ignore
     def create(self, session: Session, obj_to_add: CreateUserSchema) -> User:
+        tokens = generate_tokens(obj_to_add.code)
+
         db_obj = User(
             id=obj_to_add.id,
             email=obj_to_add.email,
             hashed_password=security.get_password_hash(obj_to_add.password),
-            spotify_access_token=obj_to_add.spotify_access_token,
-            spotify_refresh_token=obj_to_add.spotify_refresh_token,
+            spotify_access_token=tokens[0],
+            spotify_refresh_token=tokens[1],
         )
 
         session.add(db_obj)

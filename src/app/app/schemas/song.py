@@ -2,7 +2,7 @@ from typing import List
 
 from pydantic import BaseModel
 
-from app.schemas.author import BaseAuthor
+from app.schemas.author import NestedAuthorToAdd
 
 
 class BaseSong(BaseModel):
@@ -11,7 +11,7 @@ class BaseSong(BaseModel):
 
 class CreateSongSchema(BaseSong):
     id: int
-    authors: List[BaseAuthor]
+    author_id: int
 
 
 class UpdateSongSchema(BaseSong):

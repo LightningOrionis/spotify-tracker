@@ -1,3 +1,4 @@
+import datetime
 from datetime import date
 from typing import List
 
@@ -7,7 +8,6 @@ from app.schemas.charted_song import ChartedSong
 
 
 class BaseChart(BaseModel):
-    date: date
     name: str
     user_id: int
 
@@ -16,7 +16,7 @@ class BaseChart(BaseModel):
 
 
 class CreateChartSchema(BaseChart):
-    pass
+    date: str
 
 
 class UpdateChartSchema(BaseChart):
@@ -24,7 +24,8 @@ class UpdateChartSchema(BaseChart):
 
 
 class Chart(BaseChart):
-    charted_songs: List[ChartedSong]
+    chart_songs: List[ChartedSong]
+    date: datetime.date
 
     class Config:
         orm_mode = True
