@@ -11,3 +11,17 @@ class CreateAuthorSchema(BaseAuthor):
 
 class UpdateAuthorSchema(BaseAuthor):
     pass
+
+
+class Author(BaseAuthor):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+
+class NestedAuthorToAdd(BaseModel):
+    id: int
+
+    class Config:
+        orm_mode = True

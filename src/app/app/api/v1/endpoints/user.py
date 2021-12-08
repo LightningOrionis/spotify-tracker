@@ -39,7 +39,9 @@ def register(user_in: CreateUserSchema, session: Session = Depends(deps.get_db_s
 
     if user:
         raise HTTPException(status_code=400, detail="User with such email already exists")
-
-    user = crud.create(session, user_in)
+    try:
+        user = crud.create(session, user_in)
+    except KeyError:
+        raise HTTPException(status_code=401, detail="Bad spotify user code")
 
     return user

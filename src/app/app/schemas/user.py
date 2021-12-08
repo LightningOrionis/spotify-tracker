@@ -5,13 +5,12 @@ from pydantic import BaseModel
 
 class BaseUser(BaseModel):
     email: str
-    spotify_access_token: Optional[str]
-    spotify_refresh_token: Optional[str]
 
 
 class CreateUserSchema(BaseUser):
     id: int
     password: str
+    code: str
 
 
 class UpdateUserSchema(BaseUser):
@@ -20,6 +19,8 @@ class UpdateUserSchema(BaseUser):
 
 class User(BaseUser):
     id: int
+    spotify_access_token: str
+    spotify_refresh_token: str
 
     class Config:
         orm_mode = True
